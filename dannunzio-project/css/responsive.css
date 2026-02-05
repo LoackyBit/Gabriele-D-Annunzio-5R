@@ -1,0 +1,121 @@
+/* Responsive Styles */
+
+/* Tablet and below (< 768px) */
+@media (max-width: 768px) {
+  /* Header & Mobile Menu */
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Mobile Menu Styles - Only visible/styled on mobile */
+  .mobile-menu {
+    position: fixed;
+    top: 70px; /* Below navbar */
+    left: 0;
+    width: 100%;
+    background-color: rgba(34, 16, 21, 0.98);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transform: translateY(-150%);
+    transition: transform 0.4s ease;
+    z-index: 999;
+    border-bottom: 1px solid var(--secondary-gold);
+  }
+
+  .mobile-menu.active {
+    transform: translateY(0);
+  }
+
+  .mobile-link {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .mobile-link:hover {
+    color: var(--secondary-gold);
+  }
+
+  /* Typography */
+  h1.hero-title {
+    font-size: 3rem;
+  }
+
+  h2.section-title {
+    font-size: 2rem;
+  }
+
+  /* Hero */
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  /* Chat */
+  .chat-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .chat-info {
+    text-align: center;
+  }
+
+  .chat-info .section-title {
+    text-align: center;
+  }
+
+  .chat-iframe {
+    height: 500px;
+  }
+
+  /* Fragments */
+  .fragments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Video */
+  .video-container {
+    width: 100%;
+  }
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+  h1.hero-title {
+    font-size: 2.5rem;
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+
+  .poem-card {
+    padding: 20px;
+  }
+
+  .poem-text {
+    font-size: 1rem;
+  }
+}
