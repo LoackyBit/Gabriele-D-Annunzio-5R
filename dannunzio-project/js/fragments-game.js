@@ -1,3 +1,8 @@
+/**
+ * Fragments Game - Literary AI Detection Challenge
+ * Players must identify which fragment is AI-generated vs authentic D'Annunzio
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const fragments = [
         {
@@ -30,67 +35,137 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreDisplay = document.getElementById('game-score');
     const scoreValue = document.getElementById('score-value');
     let score = 0;
+    let answersGiven = 0;
+    const totalFragments = fragments.length;
 
-    if (container) {
-        fragments.forEach(frag => {
-            const card = document.createElement('div');
-            card.className = 'fragment-card fade-in-up';
-
-            card.innerHTML = `
-                <div class="card-header" style="background-image: url('${frag.image}')">
-                    <h3 class="card-title">${frag.title}</h3>
-                </div>
-                <div class="card-body">
-                    <div class="fragment-text">
-                        "${frag.text}"
-                    </div>
-                    <div class="card-actions">
-                        <button class="btn-game" data-id="${frag.id}" data-is-ai="${frag.isAI}">
-                            Questo è generato dall'IA
-                        </button>
-                        <div class="feedback-msg" id="feedback-${frag.id}"></div>
-                    </div>
-                </div>
-            `;
-
-            container.appendChild(card);
-
-            // Add event listener to button
-            const btn = card.querySelector('.btn-game');
-            btn.addEventListener('click', function() {
-                handleGuess(this, frag);
-            });
-        });
+    // Validate required DOM elements
+    if (!container) {
+        console.error('Fragments container not found');
+        return;
     }
 
-    function handleGuess(btn, fragment) {
+    /**
+     * Renders all fragment cards into the DOM
+     */
+    const renderFragments = () => {
+        try {
+            fragments.forEach(frag => {
+                const card = document.createElement('article');
+                card.className = 'fragment-card fade-in-up';
+                card.setAttribute('role', 'listitem');
+                card.setAttribute('aria-labelledby', `title-${frag.id}`);
+
+                card.innerHTML = `
+                    <div class="card-header" style="background-image: url('${frag.image}')" role="img" aria-label="${frag.title}">
+                        <h3 id="title-${frag.id}" class="card-title">${frag.title}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="fragment-text" tabindex="0">
+                            "${frag.text}"
+                        </div>
+                        <div class="card-actions">
+                            <button 
+                                class="btn-game" 
+                                data-id="${frag.id}" 
+                                data-is-ai="${frag.isAI}"
+                                aria-label="Seleziona questo frammento come generato dall'IA">
+                                Questo è generato dall'IA
+                            </button>
+                            <div class="feedback-msg" id="feedback-${frag.id}" role="alert" aria-live="assertive"></div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+
+                // Add event listener to button
+                const btn = card.querySelector('.btn-game');
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        handleGuess(this, frag);
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error rendering fragments:', error);
+        }
+    };
+
+    /**
+     * Handles user guess for a fragment
+     * @param {HTMLElement} btn - The clicked button element
+     * @param {Object} fragment - The fragment data object
+     */
+    const handleGuess = (btn, fragment) => {
+        if (!btn || !fragment) {
+            console.error('Invalid guess parameters');
+            return;
+        }
+
         const feedbackEl = document.getElementById(`feedback-${fragment.id}`);
         const card = btn.closest('.fragment-card');
 
-        // Disable button
+        if (!feedbackEl || !card) {
+            console.error('Feedback element or card not found');
+            return;
+        }
+
+        // Disable button to prevent multiple clicks
         btn.disabled = true;
-        btn.style.opacity = '0.5';
+        btn.setAttribute('aria-disabled', 'true');
 
         // Show feedback
         feedbackEl.textContent = fragment.feedback;
         feedbackEl.style.display = 'block';
 
+        answersGiven++;
+
         if (fragment.isAI) {
-            // Correct guess (it IS AI, and user clicked "This is AI")
-            // Wait, the button says "Questo è generato dall'IA".
-            // If the user clicks it, they are asserting it IS AI.
-            // If fragment.isAI is true, they are correct.
+            // Correct guess
             feedbackEl.classList.add('success');
+            feedbackEl.classList.remove('error');
             card.classList.add('correct');
+            card.classList.remove('wrong');
             score += 100;
-            scoreValue.textContent = score;
-            scoreDisplay.classList.remove('hidden');
-            scoreDisplay.classList.add('animate-pulse');
+            
+            if (scoreValue && scoreDisplay) {
+                scoreValue.textContent = score;
+                scoreDisplay.classList.remove('hidden');
+                scoreDisplay.classList.add('animate-pulse');
+                
+                // Remove pulse animation after it runs
+                setTimeout(() => {
+                    scoreDisplay.classList.remove('animate-pulse');
+                }, 2000);
+            }
         } else {
-            // Incorrect guess (It is NOT AI, but user clicked it is)
+            // Incorrect guess
             feedbackEl.classList.add('error');
+            feedbackEl.classList.remove('success');
             card.classList.add('wrong');
+            card.classList.remove('correct');
             card.classList.add('animate-shake');
+            
+            // Remove shake animation after it completes
+            setTimeout(() => {
+                card.classList.remove('animate-shake');
+            }, 400);
         }
-    }
+
+        // Check if all fragments have been answered
+        if (answersGiven === totalFragments) {
+            setTimeout(() => {
+                const message = score >= 100 
+                    ? 'Complimenti! Hai individuato correttamente il testo generato dall\'IA!' 
+                    : 'Il gioco è terminato. Riprova per migliorare il tuo punteggio!';
+                
+                if (confirm(`${message}\n\nPunteggio finale: ${score}/${totalFragments * 100}\n\nVuoi giocare ancora?`)) {
+                    location.reload();
+                }
+            }, 1500);
+        }
+    };
+
+    // Initialize game
+    renderFragments();
 });

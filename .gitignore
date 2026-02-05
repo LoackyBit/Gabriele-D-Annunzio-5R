@@ -1,0 +1,108 @@
+# ========================================
+# Gabriele D'Annunzio Project - .gitignore
+# ========================================
+
+# Operating System Files
+# ----------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Files
+# ------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Node.js (se in futuro usi build tools)
+# ---------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log*
+
+# Build Output
+# ------------
+dist/
+build/
+*.min.js
+*.min.css
+
+# Environment Variables
+# ---------------------
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*.local
+
+# Logs
+# ----
+logs/
+*.log
+npm-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage & Testing
+# ------------------
+coverage/
+.nyc_output/
+*.lcov
+
+# Temporary Files
+# ---------------
+tmp/
+temp/
+*.tmp
+*.bak
+*.cache
+
+# Vercel & Deployment
+# -------------------
+.vercel
+.netlify
+
+# Assets Temporanei (backup/originals)
+# -------------------------------------
+assets/backup/
+*.backup
+original_*
+
+# Cache Files
+# -----------
+.cache/
+.parcel-cache/
+
+# Python (per script di verifica)
+# --------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+
+# Ignore video files che potrebbero essere troppo grandi
+# -------------------------------------------------------
+# assets/video/*.mp4
+# (Commentato: il video è necessario per il progetto)
