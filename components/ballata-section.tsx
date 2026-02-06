@@ -1,3 +1,5 @@
+'use client'
+
 export default function BallataSection() {
   return (
     <section id="ballata" className="ballata-section section" aria-labelledby="ballata-title">

@@ -1,3 +1,5 @@
+'use client'
+
 export default function IntroSection() {
   return (
     <section id="intro" className="intro-section section" aria-labelledby="intro-title">
