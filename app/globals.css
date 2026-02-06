@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color Palette */
+  --primary-burgundy: #8B0000;
+  --secondary-gold: #D4AF37;
+  --accent-brown: #2C1810;
+  --bg-beige: #F5F5DC;
+  --bg-dark: #221015;
+  --text-dark: #1A1A1A;
+  --text-light: #FFFFFF;
+  --success: #4CAF50;
+  --error: #F44336;
+
+  /* Typography */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-crimson);
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 50px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.15);
+  --shadow-lg: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background-color: var(--bg-beige);
+  line-height: 1.8;
+  font-size: 18px;
+  overflow-x: hidden;
+}
+
+/* Skip to Main Content - Accessibility */
+.skip-to-main {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background-color: var(--primary-burgundy);
+  color: var(--text-light);
+  padding: 10px 20px;
+  text-decoration: none;
+  z-index: 10000;
+  transition: top var(--transition-normal);
+}
+
+.skip-to-main:focus {
+  top: 0;
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--secondary-gold);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--secondary-gold);
+  outline-offset: 4px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--primary-burgundy);
+  font-weight: 700;
+}
+
+/* Improve text rendering */
+h1, h2, h3 {
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-normal), transform var(--transition-fast);
+}
+
+a:hover {
+  color: var(--secondary-gold);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--transition-normal);
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Improve readability */
+p {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Smooth text selection */
+::selection {
+  background-color: var(--secondary-gold);
+  color: var(--text-dark);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.text-center { text-align: center; }
+.mb-5 { margin-bottom: 3rem; }
+.mt-4 { margin-top: 2rem; }
+.hidden { display: none; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Typography Helpers */
+.highlight {
+  color: var(--primary-burgundy);
+  font-style: italic;
+}
+
+.sub-label {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--secondary-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent-brown);
+}
+
+.section-desc {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Divider Ornaments */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.divider-ornament .line {
+  height: 1px;
+  width: 50px;
+  background-color: var(--secondary-gold);
+}
+
+.divider-ornament .text {
+  color: var(--secondary-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.separator-gold {
+  height: 2px;
+  width: 100px;
+  background: var(--secondary-gold);
+  margin: 20px auto;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Classes for Intersection Observer */
+.fade-in-up, .fade-in-left, .fade-in-right {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in-up.visible {
+  animation: fadeInUp 0.8s forwards;
+}
+
+.fade-in-left.visible {
+  animation: fadeInLeft 0.8s forwards;
+}
+
+.fade-in-right.visible {
+  animation: fadeInRight 0.8s forwards;
+}
+
+/* Helper Animation Classes */
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Hover effects enhancements */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  h1.hero-title {
+    font-size: 3rem;
+  }
+
+  h2.section-title {
+    font-size: 2rem;
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  h1.hero-title {
+    font-size: 2.5rem;
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+}
