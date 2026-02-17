@@ -79,6 +79,23 @@
     height: 500px;
   }
 
+  .chat-placeholder {
+    padding: 40px 20px;
+    min-height: 400px;
+  }
+
+  .chat-icon {
+    font-size: 60px;
+  }
+
+  .chat-cta-title {
+    font-size: 1.5rem;
+  }
+
+  .chat-cta-desc {
+    font-size: 1rem;
+  }
+
   /* Fragments */
   .fragments-grid {
     grid-template-columns: 1fr;
